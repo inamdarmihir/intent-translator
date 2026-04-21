@@ -717,6 +717,50 @@ def translate_endpoint(req: TranslateRequest):
     )
 
 
+class SettingsData(BaseModel):
+    llama_model_path: str
+    firecrawl_api_key: str
+
+def _load_env_dict():
+    env_path = Path(__file__).parent / ".env"
+    res = {}
+    if env_path.exists():
+        with open(env_path, "r") as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith("#") and "=" in line:
+                    k, v = line.split("=", 1)
+                    res[k.strip()] = v.strip()
+    return res
+
+def _save_env_dict(d: dict):
+    env_path = Path(__file__).parent / ".env"
+    with open(env_path, "w") as f:
+        for k, v in d.items():
+            f.write(f"{k}={v}\n")
+
+@app.get("/settings", response_model=SettingsData)
+def get_settings():
+    return SettingsData(
+        llama_model_path=os.getenv("LLAMA_MODEL_PATH", ""),
+        firecrawl_api_key=os.getenv("FIRECRAWL_API_KEY", "")
+    )
+
+@app.post("/settings")
+def update_settings(data: SettingsData):
+    d = _load_env_dict()
+    if data.llama_model_path is not None:
+        d["LLAMA_MODEL_PATH"] = data.llama_model_path
+        os.environ["LLAMA_MODEL_PATH"] = data.llama_model_path
+    if data.firecrawl_api_key is not None:
+        d["FIRECRAWL_API_KEY"] = data.firecrawl_api_key
+        os.environ["FIRECRAWL_API_KEY"] = data.firecrawl_api_key
+        
+    _save_env_dict(d)
+    inf.reinitialize()
+    return {"status": "success"}
+
+
 # ── Static frontend ──────────────────────────────────────────────────────────
 frontend_dir = Path(__file__).parent.parent / "frontend" / "dist"
 

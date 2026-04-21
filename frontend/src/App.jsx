@@ -269,14 +269,37 @@ function CrawlPanel({ quota, onQuotaChange, onCrawledCountChange }) {
 // ── Settings panel ────────────────────────────────────────────────────────────
 
 function SettingsPanel({ inference, quota, onSetCap }) {
-  const [editing, setEditing] = useState(false)
+  const [editingCap, setEditingCap] = useState(false)
   const [capInput, setCapInput] = useState('')
+
+  const [apiConfig, setApiConfig] = useState({ llama_model_path: '', firecrawl_api_key: '' })
+  const [loadingConfig, setLoadingConfig] = useState(true)
+  const [savingConfig, setSavingConfig] = useState(false)
+
+  useEffect(() => {
+    fetch(`${API}/settings`)
+      .then(r => r.json())
+      .then(d => { setApiConfig(d); setLoadingConfig(false) })
+      .catch(() => setLoadingConfig(false))
+  }, [])
 
   async function saveCap() {
     const val = parseInt(capInput)
     if (!val || val < 1 || val > 500) return
     await onSetCap(val)
-    setEditing(false)
+    setEditingCap(false)
+  }
+
+  async function saveApiConfig() {
+    setSavingConfig(true)
+    try {
+      await fetch(`${API}/settings`, {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(apiConfig),
+      })
+    } finally {
+      setSavingConfig(false)
+    }
   }
 
   return (
@@ -312,9 +335,9 @@ function SettingsPanel({ inference, quota, onSetCap }) {
             <div style={{ fontSize: 11, fontWeight: 600, color: C.tertiary, textTransform: 'uppercase', letterSpacing: '0.08em' }}>
               Firecrawl Quota · {quota.month}
             </div>
-            <button onClick={() => { setEditing(e => !e); setCapInput(String(quota.cap)) }}
+            <button onClick={() => { setEditingCap(e => !e); setCapInput(String(quota.cap)) }}
               style={{ fontSize: 11, color: C.blue, background: 'none', border: 'none', cursor: 'pointer' }}>
-              {editing ? 'Cancel' : 'Edit cap'}
+              {editingCap ? 'Cancel' : 'Edit cap'}
             </button>
           </div>
           <div style={{ height: 6, background: C.bg, borderRadius: 3, overflow: 'hidden', marginBottom: 8 }}>
@@ -326,7 +349,7 @@ function SettingsPanel({ inference, quota, onSetCap }) {
               {quota.exhausted ? '✗ exhausted' : `${quota.remaining} remaining`}
             </span>
           </div>
-          {editing && (
+          {editingCap && (
             <div style={{ marginTop: 10, display: 'flex', gap: 8, alignItems: 'center' }}>
               <input type="number" min="1" max="500" value={capInput} onChange={e => setCapInput(e.target.value)}
                 style={{ width: 72, padding: '5px 10px', border: `1px solid ${C.border}`, borderRadius: 8, fontSize: 13, outline: 'none' }}
@@ -337,6 +360,35 @@ function SettingsPanel({ inference, quota, onSetCap }) {
           )}
         </div>
       )}
+
+      {/* API Configuration */}
+      <div style={{ background: C.panel, borderRadius: 14, border: `1px solid ${C.border}`, padding: '16px 18px', boxShadow: C.shadow }}>
+        <div style={{ fontSize: 11, fontWeight: 600, color: C.tertiary, textTransform: 'uppercase', letterSpacing: '0.08em', marginBottom: 12 }}>API Keys & Paths</div>
+        {loadingConfig ? <span style={{ fontSize: 13, color: C.tertiary }}>Loading configurations…</span> : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            <div>
+              <label style={{ display: 'block', fontSize: 12, color: C.ink, fontWeight: 500, marginBottom: 6 }}>LLAMA_MODEL_PATH</label>
+              <input value={apiConfig.llama_model_path} onChange={e => setApiConfig(c => ({ ...c, llama_model_path: e.target.value }))}
+                placeholder="../models/Llama-3.2-1B-Instruct-Q4_K_M.gguf"
+                style={{ width: '100%', padding: '8px 12px', border: `1px solid ${C.border}`, borderRadius: 8, fontSize: 13, outline: 'none', color: C.ink }}
+              />
+            </div>
+            <div>
+              <label style={{ display: 'block', fontSize: 12, color: C.ink, fontWeight: 500, marginBottom: 6 }}>FIRECRAWL_API_KEY</label>
+              <input type="password" value={apiConfig.firecrawl_api_key} onChange={e => setApiConfig(c => ({ ...c, firecrawl_api_key: e.target.value }))}
+                placeholder="fc-..."
+                style={{ width: '100%', padding: '8px 12px', border: `1px solid ${C.border}`, borderRadius: 8, fontSize: 13, outline: 'none', color: C.ink }}
+              />
+            </div>
+            <button onClick={saveApiConfig} disabled={savingConfig} style={{
+              padding: '8px 14px', fontSize: 13, fontWeight: 600, alignSelf: 'flex-start',
+              background: C.blue, color: 'white', border: 'none', borderRadius: 8, cursor: savingConfig ? 'default' : 'pointer'
+            }}>
+              {savingConfig ? 'Saving...' : 'Save Configuration'}
+            </button>
+          </div>
+        )}
+      </div>
     </div>
   )
 }
