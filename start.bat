@@ -1,14 +1,15 @@
 @echo off
 echo ==========================================
 echo   Intent Translator - EN to DE
-echo   Qdrant + Claude Pipeline
+echo   Qdrant + Local Llama Pipeline
 echo ==========================================
 
 if not exist backend\.env (
     echo.
     echo ERROR: No .env file found in backend\
     echo Create backend\.env with:
-    echo ANTHROPIC_API_KEY=your_key_here
+    echo LLAMA_MODEL_PATH=..\models\Llama-3.2-1B-Instruct-Q4_K_M.gguf
+    echo FIRECRAWL_API_KEY=your_key_here (optional)
     echo.
     pause
     exit /b 1
