@@ -353,7 +353,8 @@ function InsightsDrawer({ result }) {
     <div style={{
       background: C.panel, border: `1px solid ${C.border}`,
       borderTop: 'none', borderRadius: '0 0 16px 16px',
-      animation: 'slideDown 0.25s ease', overflow: 'hidden',
+      animation: 'slideDown 0.25s ease', overflowY: 'auto',
+      maxHeight: '50vh'
     }}>
       <div style={{ padding: '16px 20px', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }}>
 
