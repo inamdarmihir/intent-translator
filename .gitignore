@@ -1,0 +1,26 @@
+# Ignore Python environments and cache
+backend/venv/
+backend/__pycache__/
+backend/.pytest_cache/
+*.pyc
+
+# Ignore Node.js
+frontend/node_modules/
+frontend/dist/
+frontend/.eslintcache
+
+# Ignore Models
+models/
+*.gguf
+
+# Ignore Database storage
+qdrant_storage/
+
+# Ignore Environment variables
+.env
+backend/.env
+frontend/.env
+
+# Ignore OS files
+.DS_Store
+Thumbs.db

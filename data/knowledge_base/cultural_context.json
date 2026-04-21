@@ -1,0 +1,92 @@
+[
+  {
+    "id": "culture_001",
+    "category": "directness",
+    "title": "German Directness vs English Indirectness",
+    "description": "German communication is low-context and direct. English (especially British/American) is high-context with heavy use of implication, softening, and indirection. What sounds blunt in English is normal in German.",
+    "examples": [
+      "EN: 'You might want to consider...' → DE: 'Sie sollten...' (You should...)",
+      "EN: 'That's an interesting approach' (meaning: I disagree) → DE: 'Ich sehe das anders' (I see that differently)"
+    ],
+    "implication": "Remove hedging language when translating to German professional contexts."
+  },
+  {
+    "id": "culture_002",
+    "category": "formal_vs_informal",
+    "title": "Sie vs Du — The Formal/Informal Divide",
+    "description": "German has a formal pronoun (Sie) and informal (du). The choice signals the entire relationship. Using 'du' with someone who expects 'Sie' is a serious social error. In professional settings, 'Sie' is default unless the other party initiates 'du'.",
+    "examples": [
+      "Professional email to unknown: always Sie",
+      "Close colleague who offered 'duzen': use du",
+      "Customer service interactions: Sie always"
+    ],
+    "implication": "Always assess relationship register before choosing Sie/du."
+  },
+  {
+    "id": "culture_003",
+    "category": "understatement",
+    "title": "German Professional Understatement",
+    "description": "German understatements in professional contexts carry heavy weight. 'Nicht optimal', 'verbesserungswürdig', 'ausbaufähig' are not mild — they signal real problems. English readers often miss the severity.",
+    "examples": [
+      "'Das ist nicht optimal' → This is seriously problematic",
+      "'Das ist verbesserungswürdig' → This needs significant improvement",
+      "'Ausbaufähig' → Needs substantial development (polite way of saying: inadequate)"
+    ],
+    "implication": "Translate the cultural weight, not just the words."
+  },
+  {
+    "id": "culture_004",
+    "category": "punctuality_deadlines",
+    "title": "Deadlines and Punctuality as Respect",
+    "description": "In German culture, deadlines are commitments, not suggestions. Being late or missing a deadline is a signal of disrespect or incompetence. Communications around deadlines should be factual and precise, not apologetic or casual.",
+    "examples": [
+      "EN: 'Whenever you get a chance...' → Does not translate well. State a concrete date.",
+      "EN: 'Hopefully by end of week' → DE: 'Bis Freitag, 17 Uhr' (By Friday, 5pm)"
+    ],
+    "implication": "Replace vague time references with precise ones in German."
+  },
+  {
+    "id": "culture_005",
+    "category": "small_talk",
+    "title": "Small Talk Norms",
+    "description": "Germans engage in less small talk than Americans/British, especially in professional settings. Getting to the point is efficient and respectful, not rude. Prolonged preamble before stating the purpose of communication can seem evasive.",
+    "examples": [
+      "Long email preamble → Cut to 1-2 sentences max before the main point",
+      "Meeting opener: Skip extended pleasantries unless relationship is close"
+    ],
+    "implication": "Trim social preamble significantly in professional German communication."
+  },
+  {
+    "id": "culture_006",
+    "category": "titles_credentials",
+    "title": "Titles and Academic Credentials",
+    "description": "Academic and professional titles (Dr., Prof., Dipl.-Ing.) are used in formal address in Germany much more than in English-speaking cultures. Omitting someone's title can be seen as disrespectful. Always include in formal correspondence.",
+    "examples": [
+      "EN: 'Dear John Smith' → DE: 'Sehr geehrter Herr Dr. Schmidt'",
+      "Address a professor: 'Sehr geehrter Herr Professor Müller'"
+    ],
+    "implication": "Check for and include titles in formal German address."
+  },
+  {
+    "id": "culture_007",
+    "category": "written_vs_spoken",
+    "title": "Written German is More Formal Than Spoken",
+    "description": "The gap between written and spoken register in German is larger than in English. Written business German uses subjunctive mood, complex sentence structures, and formal vocabulary that would sound stiff in English but is standard in German correspondence.",
+    "examples": [
+      "Email: 'Ich würde mich freuen...' (I would be pleased) rather than 'Ich freue mich'",
+      "Requests: Konjunktiv II softens without weakening: 'Könnten Sie...' (Could you...)"
+    ],
+    "implication": "Formal written German requires more elevated register than its English equivalent."
+  },
+  {
+    "id": "culture_008",
+    "category": "feedback_culture",
+    "title": "Direct Feedback Without Sandwich",
+    "description": "The 'feedback sandwich' (praise + criticism + praise) is an American construct. In German professional culture, leading with false praise before criticism reads as manipulative. State what needs improvement directly, with reasoning.",
+    "examples": [
+      "EN: 'Great effort! But the structure is off. Overall good work!' → Confusing in German context",
+      "DE: 'Die Struktur muss überarbeitet werden, da...' (The structure needs revision, because...)"
+    ],
+    "implication": "Give direct feedback with reasoning. Skip the emotional cushioning."
+  }
+]

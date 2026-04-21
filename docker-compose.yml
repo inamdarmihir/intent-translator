@@ -1,0 +1,27 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+    volumes:
+      - qdrant_data:/qdrant/storage
+
+  backend:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - QDRANT_HOST=qdrant
+      - QDRANT_PORT=6333
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - FIRECRAWL_API_KEY=${FIRECRAWL_API_KEY}
+    env_file:
+      - backend/.env
+    depends_on:
+      - qdrant
+    volumes:
+      - quota_data:/app/backend
+
+volumes:
+  qdrant_data:
+  quota_data:
